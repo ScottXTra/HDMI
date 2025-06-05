@@ -10,7 +10,7 @@ module svo_tcard #( `SVO_DEFAULT_PARAMS ) (
     input clk, resetn,
     // Optional player controls. btn[3:2] control the left paddle (up/down)
     // and btn[1:0] control the right paddle (up/down). When left unconnected
-    // the paddles move automatically.
+    // the paddles automatically track the ball, so the game plays itself.
     input [3:0] btn,
     output reg out_axis_tvalid,
     input      out_axis_tready,
@@ -36,6 +36,9 @@ module svo_tcard #( `SVO_DEFAULT_PARAMS ) (
 
     // Ball dimensions (square ball)
     localparam integer BALL_SIZE = 8;
+
+    // Speed at which the automated paddles follow the ball (pixels per frame)
+    localparam integer AUTO_SPEED = 3;
 
     //-------------------------------------------------------------------------
     // Game State Registers
@@ -78,8 +81,8 @@ module svo_tcard #( `SVO_DEFAULT_PARAMS ) (
             right_paddle_dy <= -2;
         end else if ((hcursor == 0) && (vcursor == 0)) begin
             // --- Paddle updates ---
-            // Manual control when buttons are asserted, otherwise simple
-            // automatic movement like the original demo.
+            // Manual control when buttons are asserted, otherwise the paddles
+            // automatically follow the ball so the game can play by itself.
             if (btn[3]) begin
                 left_paddle_y <= (left_paddle_y > 2) ? left_paddle_y - 3 : 0;
             end else if (btn[2]) begin
@@ -88,10 +91,17 @@ module svo_tcard #( `SVO_DEFAULT_PARAMS ) (
                 else
                     left_paddle_y <= SVO_VER_PIXELS - PADDLE_HEIGHT;
             end else begin
-                left_paddle_y <= left_paddle_y + left_paddle_dy;
-                if ((left_paddle_y + left_paddle_dy) <= 0 ||
-                    (left_paddle_y + left_paddle_dy) >= (SVO_VER_PIXELS - PADDLE_HEIGHT))
-                    left_paddle_dy <= -left_paddle_dy;
+                if (ball_y + BALL_SIZE/2 > left_paddle_y + PADDLE_HEIGHT/2) begin
+                    if (left_paddle_y + AUTO_SPEED < SVO_VER_PIXELS - PADDLE_HEIGHT)
+                        left_paddle_y <= left_paddle_y + AUTO_SPEED;
+                    else
+                        left_paddle_y <= SVO_VER_PIXELS - PADDLE_HEIGHT;
+                end else if (ball_y + BALL_SIZE/2 < left_paddle_y + PADDLE_HEIGHT/2) begin
+                    if (left_paddle_y > AUTO_SPEED)
+                        left_paddle_y <= left_paddle_y - AUTO_SPEED;
+                    else
+                        left_paddle_y <= 0;
+                end
             end
 
             if (btn[0]) begin
@@ -102,10 +112,17 @@ module svo_tcard #( `SVO_DEFAULT_PARAMS ) (
                 else
                     right_paddle_y <= SVO_VER_PIXELS - PADDLE_HEIGHT;
             end else begin
-                right_paddle_y <= right_paddle_y + right_paddle_dy;
-                if ((right_paddle_y + right_paddle_dy) <= 0 ||
-                    (right_paddle_y + right_paddle_dy) >= (SVO_VER_PIXELS - PADDLE_HEIGHT))
-                    right_paddle_dy <= -right_paddle_dy;
+                if (ball_y + BALL_SIZE/2 > right_paddle_y + PADDLE_HEIGHT/2) begin
+                    if (right_paddle_y + AUTO_SPEED < SVO_VER_PIXELS - PADDLE_HEIGHT)
+                        right_paddle_y <= right_paddle_y + AUTO_SPEED;
+                    else
+                        right_paddle_y <= SVO_VER_PIXELS - PADDLE_HEIGHT;
+                end else if (ball_y + BALL_SIZE/2 < right_paddle_y + PADDLE_HEIGHT/2) begin
+                    if (right_paddle_y > AUTO_SPEED)
+                        right_paddle_y <= right_paddle_y - AUTO_SPEED;
+                    else
+                        right_paddle_y <= 0;
+                end
             end
             
             // --- Ball update ---
