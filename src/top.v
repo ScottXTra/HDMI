@@ -1,6 +1,7 @@
 module top(
   input clk,
   input resetn,
+  input [3:0] btn,
 
   output       tmds_clk_n,
   output       tmds_clk_p,
@@ -31,9 +32,11 @@ svo_hdmi svo_hdmi_inst (
 	.resetn(sys_resetn),
 
 	// video clocks
-	.clk_pixel(clk_p),
-	.clk_5x_pixel(clk_p5),
-	.locked(pll_lock),
+        .clk_pixel(clk_p),
+        .clk_5x_pixel(clk_p5),
+        .locked(pll_lock),
+
+        .btn(btn),
 
 	// output signals
 	.tmds_clk_n(tmds_clk_n),

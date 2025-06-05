@@ -8,6 +8,10 @@
 
 module svo_tcard #( `SVO_DEFAULT_PARAMS ) (
     input clk, resetn,
+    // Optional player controls. btn[3:2] control the left paddle (up/down)
+    // and btn[1:0] control the right paddle (up/down). When left unconnected
+    // the paddles move automatically.
+    input [3:0] btn,
     output reg out_axis_tvalid,
     input      out_axis_tready,
     output reg [SVO_BITS_PER_PIXEL-1:0] out_axis_tdata,
@@ -74,17 +78,35 @@ module svo_tcard #( `SVO_DEFAULT_PARAMS ) (
             right_paddle_dy <= -2;
         end else if ((hcursor == 0) && (vcursor == 0)) begin
             // --- Paddle updates ---
-            // Update left paddle position and bounce at top/bottom.
-            left_paddle_y <= left_paddle_y + left_paddle_dy;
-            if ((left_paddle_y + left_paddle_dy) <= 0 ||
-                (left_paddle_y + left_paddle_dy) >= (SVO_VER_PIXELS - PADDLE_HEIGHT))
-                left_paddle_dy <= -left_paddle_dy;
-            
-            // Update right paddle position and bounce.
-            right_paddle_y <= right_paddle_y + right_paddle_dy;
-            if ((right_paddle_y + right_paddle_dy) <= 0 ||
-                (right_paddle_y + right_paddle_dy) >= (SVO_VER_PIXELS - PADDLE_HEIGHT))
-                right_paddle_dy <= -right_paddle_dy;
+            // Manual control when buttons are asserted, otherwise simple
+            // automatic movement like the original demo.
+            if (btn[3]) begin
+                left_paddle_y <= (left_paddle_y > 2) ? left_paddle_y - 3 : 0;
+            end else if (btn[2]) begin
+                if (left_paddle_y + 3 < SVO_VER_PIXELS - PADDLE_HEIGHT)
+                    left_paddle_y <= left_paddle_y + 3;
+                else
+                    left_paddle_y <= SVO_VER_PIXELS - PADDLE_HEIGHT;
+            end else begin
+                left_paddle_y <= left_paddle_y + left_paddle_dy;
+                if ((left_paddle_y + left_paddle_dy) <= 0 ||
+                    (left_paddle_y + left_paddle_dy) >= (SVO_VER_PIXELS - PADDLE_HEIGHT))
+                    left_paddle_dy <= -left_paddle_dy;
+            end
+
+            if (btn[0]) begin
+                right_paddle_y <= (right_paddle_y > 2) ? right_paddle_y - 3 : 0;
+            end else if (btn[1]) begin
+                if (right_paddle_y + 3 < SVO_VER_PIXELS - PADDLE_HEIGHT)
+                    right_paddle_y <= right_paddle_y + 3;
+                else
+                    right_paddle_y <= SVO_VER_PIXELS - PADDLE_HEIGHT;
+            end else begin
+                right_paddle_y <= right_paddle_y + right_paddle_dy;
+                if ((right_paddle_y + right_paddle_dy) <= 0 ||
+                    (right_paddle_y + right_paddle_dy) >= (SVO_VER_PIXELS - PADDLE_HEIGHT))
+                    right_paddle_dy <= -right_paddle_dy;
+            end
             
             // --- Ball update ---
             ball_x <= ball_x + ball_dx;

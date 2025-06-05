@@ -21,10 +21,13 @@
 `include "hdmi/svo_defines.vh"
 
 module svo_hdmi(
-	input clk,
-	input resetn,
+        input clk,
+        input resetn,
 
-	// video clocks
+        // optional player buttons forwarded to the pong generator
+        input [3:0] btn,
+
+        // video clocks
 	input clk_pixel,
 	input clk_5x_pixel,
 	input locked,
@@ -82,15 +85,16 @@ module svo_hdmi(
 	wire clk_resetn = resetn && locked_clk_q[3];
 	wire clk_pixel_resetn = locked && resetn_clk_pixel_q[3];
 
-	svo_tcard #( `SVO_PASS_PARAMS ) svo_tcard (
-		.clk(clk_pixel),
-		.resetn(resetn),
+        svo_tcard #( `SVO_PASS_PARAMS ) svo_tcard (
+                .clk(clk_pixel),
+                .resetn(resetn),
+                .btn(btn),
 
-		.out_axis_tvalid(vdma_tvalid),
-		.out_axis_tready(vdma_tready),
-		.out_axis_tdata(vdma_tdata),
-		.out_axis_tuser(vdma_tuser)
-	);
+                .out_axis_tvalid(vdma_tvalid),
+                .out_axis_tready(vdma_tready),
+                .out_axis_tdata(vdma_tdata),
+                .out_axis_tuser(vdma_tuser)
+        );
 
 	svo_term #( `SVO_PASS_PARAMS ) svo_term (
 		.clk(clk),
