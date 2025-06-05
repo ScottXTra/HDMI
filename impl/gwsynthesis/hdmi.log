@@ -1,0 +1,115 @@
+GowinSynthesis start
+Running parser ...
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\gowin_clkdiv\gowin_clkdiv.v'
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\gowin_rpll\gowin_rpll.v'
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v'
+Analyzing included file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":21)
+Back to file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":21)
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_openldi.v'
+Analyzing included file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_openldi.v":21)
+Back to file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_openldi.v'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_openldi.v":21)
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tcard.v'
+Analyzing included file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tcard.v":2)
+Back to file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tcard.v'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tcard.v":2)
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v'
+Analyzing included file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":21)
+Back to file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":21)
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tmds.v'
+Analyzing included file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tmds.v":21)
+Back to file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tmds.v'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tmds.v":21)
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v'
+Analyzing included file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":21)
+Back to file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":21)
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_vdma.v'
+Analyzing included file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_vdma.v":21)
+Back to file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_vdma.v'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_vdma.v":21)
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v'
+Analyzing included file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_defines.vh'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":21)
+Back to file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":21)
+Undeclared symbol 'term_out_tready', assumed default net type 'wire'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":101)
+Analyzing Verilog file 'C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\top.v'
+Undeclared symbol 'clk_p5', assumed default net type 'wire'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\top.v":13)
+Undeclared symbol 'pll_lock', assumed default net type 'wire'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\top.v":14)
+Undeclared symbol 'clk_p', assumed default net type 'wire'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\top.v":18)
+Undeclared symbol 'sys_resetn', assumed default net type 'wire'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\top.v":24)
+Compiling module 'top'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\top.v":1)
+Compiling module 'Gowin_rPLL'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\gowin_rpll\gowin_rpll.v":9)
+Compiling module 'Gowin_CLKDIV'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\gowin_clkdiv\gowin_clkdiv.v":9)
+Compiling module 'Reset_Sync'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\top.v":47)
+WARN  (EX3073) : Port 'in_axis_tvalid' remains unconnected for this instance("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+Compiling module 'svo_hdmi'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":23)
+WARN  (EX3791) : Expression size 5 truncated to fit in target size 4("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":77)
+WARN  (EX3791) : Expression size 5 truncated to fit in target size 4("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":80)
+Compiling module 'svo_tcard(SVO_MODE="640x480V")'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tcard.v":9)
+WARN  (EX3045) : Case equality operator always evaluates to false due to comparison with 'x' or 'z'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tcard.v":16)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tcard.v":170)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tcard.v":172)
+Compiling module 'svo_term(SVO_MODE="640x480V")'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":23)
+Extracting RAM for identifier 'mem'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":64)
+WARN  (EX3045) : Case equality operator always evaluates to false due to comparison with 'x' or 'z'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":54)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 8("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":101)
+WARN  (EX3791) : Expression size 12 truncated to fit in target size 11("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":144)
+WARN  (EX3791) : Expression size 12 truncated to fit in target size 11("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":145)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 11("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":192)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":371)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":373)
+WARN  (EX3791) : Expression size 12 truncated to fit in target size 11("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":389)
+WARN  (EX3791) : Expression size 4 truncated to fit in target size 3("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":433)
+WARN  (EX3791) : Expression size 4 truncated to fit in target size 3("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_term.v":439)
+Compiling module 'svo_overlay(SVO_MODE="640x480V")'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":250)
+WARN  (EX3045) : Case equality operator always evaluates to false due to comparison with 'x' or 'z'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":275)
+WARN  (EX3791) : Expression size 2 truncated to fit in target size 1("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":303)
+Compiling module 'svo_buf(SVO_MODE="640x480V")'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":101)
+WARN  (EX3045) : Case equality operator always evaluates to false due to comparison with 'x' or 'z'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":121)
+Compiling module 'svo_axis_pipe(TDATA_WIDTH=24)'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":31)
+Compiling module 'svo_buf(TUSER_WIDTH=2,SVO_MODE="640x480V")'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":101)
+WARN  (EX3045) : Case equality operator always evaluates to false due to comparison with 'x' or 'z'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":121)
+Compiling module 'svo_axis_pipe(TDATA_WIDTH=24,TUSER_WIDTH=2)'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_utils.v":31)
+Compiling module 'svo_enc(SVO_MODE="640x480V")'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":23)
+Extracting RAM for identifier 'ctrl_fifo'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":48)
+Extracting RAM for identifier 'pixel_fifo'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":51)
+Extracting RAM for identifier 'out_fifo'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":54)
+WARN  (EX3045) : Case equality operator always evaluates to false due to comparison with 'x' or 'z'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":43)
+WARN  (EX3791) : Expression size 3 truncated to fit in target size 2("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":92)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":96)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":98)
+WARN  (EX3791) : Expression size 4 truncated to fit in target size 3("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":110)
+WARN  (EX3791) : Expression size 4 truncated to fit in target size 3("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":125)
+WARN  (EX3791) : Expression size 3 truncated to fit in target size 2("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":129)
+WARN  (EX3791) : Expression size 3 truncated to fit in target size 2("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":130)
+WARN  (EX3791) : Expression size 3 truncated to fit in target size 2("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":133)
+WARN  (EX3791) : Expression size 3 truncated to fit in target size 2("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":134)
+WARN  (EX3791) : Expression size 4 truncated to fit in target size 3("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":135)
+WARN  (EX3791) : Expression size 3 truncated to fit in target size 2("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":155)
+WARN  (EX3791) : Expression size 3 truncated to fit in target size 2("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_enc.v":159)
+Compiling module 'svo_tmds'("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\hdmi\svo_tmds.v":23)
+WARN  (EX2565) : Input 'in_axis_tvalid' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+WARN  (EX2565) : Input 'in_axis_tdata[7]' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+WARN  (EX2565) : Input 'in_axis_tdata[6]' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+WARN  (EX2565) : Input 'in_axis_tdata[5]' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+WARN  (EX2565) : Input 'in_axis_tdata[4]' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+WARN  (EX2565) : Input 'in_axis_tdata[3]' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+WARN  (EX2565) : Input 'in_axis_tdata[2]' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+WARN  (EX2565) : Input 'in_axis_tdata[1]' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+WARN  (EX2565) : Input 'in_axis_tdata[0]' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\src\svo_hdmi.v":104)
+NOTE  (EX0101) : Current top module is "top"
+[5%] Running netlist conversion ...
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+[95%] Generate netlist file "C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\impl\gwsynthesis\hdmi.vg" completed
+[100%] Generate report file "C:\Gowin\Gowin_V1.9.11.01_Education_x64\IDE\bin\Documents\TangNano-9K-example\hdmi\impl\gwsynthesis\hdmi_syn.rpt.html" completed
+GowinSynthesis finish

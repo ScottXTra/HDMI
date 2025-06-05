@@ -1,0 +1,61 @@
+{
+ "Device" : "GW1NR-9C",
+ "Files" : [
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/gowin_clkdiv/gowin_clkdiv.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/gowin_rpll/gowin_rpll.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_defines.vh",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_enc.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_openldi.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_tcard.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_term.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_tmds.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_utils.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_vdma.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/svo_hdmi.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/top.v",
+   "Type" : "verilog"
+  }
+ ],
+ "IncludePath" : [
+
+ ],
+ "LoopLimit" : 2000,
+ "ResultFile" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/impl/temp/rtl_parser.result",
+ "Top" : "top",
+ "VerilogStd" : "verilog_2001",
+ "VhdlStd" : "vhdl_93"
+}
