@@ -96,7 +96,7 @@
       "InstLine" : 85,
       "InstName" : "svo_tcard",
       "ModuleFile" : "C:/Gowin/Gowin_V1.9.11.01_Education_x64/IDE/bin/Documents/TangNano-9K-example/hdmi/src/hdmi/svo_tcard.v",
-      "ModuleLine" : 9,
+      "ModuleLine" : 23,
       "ModuleName" : "svo_tcard"
      },
      {

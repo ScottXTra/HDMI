@@ -1,177 +1,264 @@
+/*
+ *  SVO - Simple Video Out FPGA Core
+ *
+ *  Copyright (C) 2014  Clifford Wolf <clifford@clifford.at>
+ *  
+ *  Permission to use, copy, modify, and/or distribute this software for any
+ *  purpose with or without fee is hereby granted, provided that the above
+ *  copyright notice and this permission notice appear in all copies.
+ *  
+ *  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ *  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ *  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ *  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ *  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ *  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ *  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
+ */
+
 `timescale 1ns / 1ps
 `include "svo_defines.vh"
 
-// If SVO_XYBITS is not defined in svo_defines.vh, define it here (10 bits supports up to ~1024 pixels)
-`ifndef SVO_XYBITS
-  `define SVO_XYBITS 10
-`endif
-
 module svo_tcard #( `SVO_DEFAULT_PARAMS ) (
-    input clk, resetn,
-    output reg out_axis_tvalid,
-    input      out_axis_tready,
-    output reg [SVO_BITS_PER_PIXEL-1:0] out_axis_tdata,
-    output reg [0:0] out_axis_tuser
+	input clk, resetn,
+
+	// output stream
+	//   tuser[0] ... start of frame
+	output reg out_axis_tvalid,
+	input out_axis_tready,
+	output reg [SVO_BITS_PER_PIXEL-1:0] out_axis_tdata,
+	output reg [0:0] out_axis_tuser
 );
-    `SVO_DECLS
+	`SVO_DECLS
 
-    //-------------------------------------------------------------------------
-    // Game Geometry and Colors (Assuming a 24-bit color depth)
-    //-------------------------------------------------------------------------
-    // Pong elements are rendered in white on a black background.
-    localparam [SVO_BITS_PER_PIXEL-1:0] WHITE = 24'hFFFFFF;
-    localparam [SVO_BITS_PER_PIXEL-1:0] BLACK = 24'h000000;
+	localparam HOFFSET = ((32 - (SVO_HOR_PIXELS % 32)) % 32) / 2;
+	localparam VOFFSET = ((32 - (SVO_VER_PIXELS % 32)) % 32) / 2;
 
-    // Paddle dimensions (in pixels)
-    localparam integer PADDLE_WIDTH  = 8;
-    localparam integer PADDLE_HEIGHT = 64;
-    // Position of left paddle (fixed x)
-    localparam integer LEFT_PADDLE_X  = 16;
-    // Position of right paddle (fixed x)
-    localparam integer RIGHT_PADDLE_X = SVO_HOR_PIXELS - PADDLE_WIDTH - 16;
+	localparam HOR_CELLS = (SVO_HOR_PIXELS + 31) / 32;
+	localparam VER_CELLS = (SVO_VER_PIXELS + 31) / 32;
 
-    // Ball dimensions (square ball)
-    localparam integer BALL_SIZE = 8;
+	localparam BAR_W = (HOR_CELLS - 8 - HOR_CELLS%2) / 2;
 
-    //-------------------------------------------------------------------------
-    // Game State Registers
-    //-------------------------------------------------------------------------
-    // Ball position and velocity
-    reg [`SVO_XYBITS-1:0] ball_x;
-    reg [`SVO_XYBITS-1:0] ball_y;
-    reg signed [3:0] ball_dx;
-    reg signed [3:0] ball_dy;
+	localparam X1 =  2;
+	localparam X2 = 2 + BAR_W;
+	localparam X3 = HOR_CELLS - 4 - BAR_W;
+	localparam X4 = HOR_CELLS - 4;
 
-    // Left paddle vertical position and velocity
-    reg [`SVO_XYBITS-1:0] left_paddle_y;
-    reg signed [3:0]      left_paddle_dy;
+	function integer best_y_params;
+		input integer n, which;
+		integer best_y_blk;
+		integer best_y_off;
+		integer best_y_gap;
+		begin
+			best_y_blk = 0;
+			best_y_gap = 0;
+			best_y_off = 0;
 
-    // Right paddle vertical position and velocity
-    reg [`SVO_XYBITS-1:0] right_paddle_y;
-    reg signed [3:0]      right_paddle_dy;
+			if (SVO_VER_PIXELS == 480) begin
+				best_y_blk = 3;
+				best_y_gap = 1;
+				best_y_off = 1;
+			end
 
-    //-------------------------------------------------------------------------
-    // Pixel Counters for Video Generation
-    //-------------------------------------------------------------------------
-    reg [`SVO_XYBITS-1:0] hcursor;
-    reg [`SVO_XYBITS-1:0] vcursor;
+			if (SVO_VER_PIXELS == 600) begin
+				best_y_blk = 3;
+				best_y_gap = 2;
+				best_y_off = 2;
+			end
 
-    //-------------------------------------------------------------------------
-    // Game Update Logic: Update once per frame
-    //-------------------------------------------------------------------------
-    // At the start-of-frame (when hcursor==0 and vcursor==0) update the game state.
-    always @(posedge clk) begin
-        if (!resetn) begin
-            // Initialize ball at center with initial velocity.
-            ball_x <= SVO_HOR_PIXELS/2 - BALL_SIZE/2;
-            ball_y <= SVO_VER_PIXELS/2 - BALL_SIZE/2;
-            ball_dx <= 3;
-            ball_dy <= 2;
-            // Initialize paddles centered vertically.
-            left_paddle_y  <= (SVO_VER_PIXELS - PADDLE_HEIGHT)/2;
-            left_paddle_dy <= 2;
-            right_paddle_y <= (SVO_VER_PIXELS - PADDLE_HEIGHT)/2;
-            right_paddle_dy <= -2;
-        end else if ((hcursor == 0) && (vcursor == 0)) begin
-            // --- Paddle updates ---
-            // Update left paddle position and bounce at top/bottom.
-            left_paddle_y <= left_paddle_y + left_paddle_dy;
-            if ((left_paddle_y + left_paddle_dy) <= 0 ||
-                (left_paddle_y + left_paddle_dy) >= (SVO_VER_PIXELS - PADDLE_HEIGHT))
-                left_paddle_dy <= -left_paddle_dy;
-            
-            // Update right paddle position and bounce.
-            right_paddle_y <= right_paddle_y + right_paddle_dy;
-            if ((right_paddle_y + right_paddle_dy) <= 0 ||
-                (right_paddle_y + right_paddle_dy) >= (SVO_VER_PIXELS - PADDLE_HEIGHT))
-                right_paddle_dy <= -right_paddle_dy;
-            
-            // --- Ball update ---
-            ball_x <= ball_x + ball_dx;
-            ball_y <= ball_y + ball_dy;
-            
-            // Bounce off top and bottom edges.
-            if ((ball_y + ball_dy) <= 0 || (ball_y + ball_dy) >= (SVO_VER_PIXELS - BALL_SIZE))
-                ball_dy <= -ball_dy;
-            
-            // Check collision with left paddle.
-            if ((ball_x <= (LEFT_PADDLE_X + PADDLE_WIDTH)) &&
-                ((ball_x + BALL_SIZE) >= LEFT_PADDLE_X) &&
-                (ball_y + BALL_SIZE > left_paddle_y) &&
-                (ball_y < left_paddle_y + PADDLE_HEIGHT)) begin
-                if (ball_dx < 0)
-                    ball_dx <= -ball_dx;
-            end else if (ball_x < 0) begin
-                // Ball missed left paddle: reset ball to center.
-                ball_x <= SVO_HOR_PIXELS/2 - BALL_SIZE/2;
-                ball_y <= SVO_VER_PIXELS/2 - BALL_SIZE/2;
-                ball_dx <= 3;
-                ball_dy <= 2;
-            end
-            
-            // Check collision with right paddle.
-            if ((ball_x + BALL_SIZE >= RIGHT_PADDLE_X) &&
-                (ball_x <= RIGHT_PADDLE_X + PADDLE_WIDTH) &&
-                (ball_y + BALL_SIZE > right_paddle_y) &&
-                (ball_y < right_paddle_y + PADDLE_HEIGHT)) begin
-                if (ball_dx > 0)
-                    ball_dx <= -ball_dx;
-            end else if (ball_x > SVO_HOR_PIXELS - BALL_SIZE) begin
-                // Ball missed right paddle: reset ball.
-                ball_x <= SVO_HOR_PIXELS/2 - BALL_SIZE/2;
-                ball_y <= SVO_VER_PIXELS/2 - BALL_SIZE/2;
-                ball_dx <= -3;
-                ball_dy <= 2;
-            end
-        end
-    end
+			if (SVO_VER_PIXELS == 768) begin
+				best_y_blk = 4;
+				best_y_gap = 3;
+				best_y_off = 2;
+			end
 
-    //-------------------------------------------------------------------------
-    // Video Pixel Generation
-    //-------------------------------------------------------------------------
-    // The pixel generator runs every clock cycle, reading (hcursor, vcursor)
-    // and drawing the game elements as follows:
-    // - If the current pixel lies within the left paddle area, right paddle area,
-    //   or ball area, output white.
-    // - Otherwise, output a black background.
-    // The start-of-frame (tuser) flag is asserted when hcursor and vcursor are zero.
-    //-------------------------------------------------------------------------
-    always @(posedge clk) begin
-        if (!resetn) begin
-            hcursor         <= 0;
-            vcursor         <= 0;
-            out_axis_tvalid <= 0;
-            out_axis_tdata  <= 0;
-            out_axis_tuser  <= 0;
-        end else if (!out_axis_tvalid || out_axis_tready) begin
-            out_axis_tvalid <= 1;
-            // Set start-of-frame flag.
-            out_axis_tuser[0] <= (hcursor == 0 && vcursor == 0);
+			if (SVO_VER_PIXELS == 1080) begin
+				best_y_blk = 6;
+				best_y_gap = 2;
+				best_y_off = 5;
+			end
 
-            // Check if the current pixel lies within any game element.
-            if ( (hcursor >= LEFT_PADDLE_X) && (hcursor < LEFT_PADDLE_X + PADDLE_WIDTH) &&
-                 (vcursor >= left_paddle_y) && (vcursor < left_paddle_y + PADDLE_HEIGHT) )
-                out_axis_tdata <= WHITE;
-            else if ( (hcursor >= RIGHT_PADDLE_X) && (hcursor < RIGHT_PADDLE_X + PADDLE_WIDTH) &&
-                      (vcursor >= right_paddle_y) && (vcursor < right_paddle_y + PADDLE_HEIGHT) )
-                out_axis_tdata <= WHITE;
-            else if ( (hcursor >= ball_x) && (hcursor < ball_x + BALL_SIZE) &&
-                      (vcursor >= ball_y) && (vcursor < ball_y + BALL_SIZE) )
-                out_axis_tdata <= WHITE;
-            else
-                out_axis_tdata <= BLACK;
-            
-            // Advance pixel counters.
-            if (hcursor == SVO_HOR_PIXELS - 1) begin
-                hcursor <= 0;
-                if (vcursor == SVO_VER_PIXELS - 1)
-                    vcursor <= 0;
-                else
-                    vcursor <= vcursor + 1;
-            end else begin
-                hcursor <= hcursor + 1;
-            end
-        end
-    end
+			if (which == 1) best_y_params = best_y_blk;
+			if (which == 2) best_y_params = best_y_gap;
+			if (which == 3) best_y_params = best_y_off;
+		end
+	endfunction
 
+	localparam Y_BLK = best_y_params(VER_CELLS, 1);
+	localparam Y_GAP = best_y_params(VER_CELLS, 2);
+	localparam Y_OFF = best_y_params(VER_CELLS, 3);
+
+	localparam Y1 = 0*Y_BLK + 0*Y_GAP + Y_OFF;
+	localparam Y2 = 1*Y_BLK + 0*Y_GAP + Y_OFF;
+	localparam Y3 = 1*Y_BLK + 1*Y_GAP + Y_OFF;
+	localparam Y4 = 2*Y_BLK + 1*Y_GAP + Y_OFF;
+	localparam Y5 = 2*Y_BLK + 2*Y_GAP + Y_OFF;
+	localparam Y6 = 3*Y_BLK + 2*Y_GAP + Y_OFF;
+
+	reg [`SVO_XYBITS-1:0] hcursor;
+	reg [`SVO_XYBITS-1:0] vcursor;
+
+	reg [`SVO_XYBITS-6:0] x;
+	reg [`SVO_XYBITS-6:0] y;
+
+	reg [4:0] xoff, yoff;
+
+	reg [31:0] rng;
+	reg [SVO_BITS_PER_RED-1:0] r;
+	reg [SVO_BITS_PER_GREEN-1:0] g;
+	reg [SVO_BITS_PER_BLUE-1:0] b;
+
+	wire [32*32-1:0] bolt_bitmap = {
+		32'b 00000000000000000000000000000000,
+		32'b 01111111000000000000000001111111,
+		32'b 01111100000000000000000000011111,
+		32'b 01110000000000000000000000000111,
+		32'b 01100000000000000000000000000011,
+		32'b 01100000000000000000000000000011,
+		32'b 01000000000000000000000000000001,
+		32'b 01000000000000000000000000000001,
+		32'b 00000000000000000000000000000000,
+		32'b 00000000000000000000000000000000,
+		32'b 00000000000000000000000000000000,
+		32'b 00000000000000000000000000000000,
+		32'b 00000000000000111100000000000000,
+		32'b 00000000000001111110000000000000,
+		32'b 00000000000011111111000000000000,
+		32'b 00000000000011111111000000000000,
+		32'b 00000000000011111111000000000000,
+		32'b 00000000000011111111000000000000,
+		32'b 00000000000001111110000000000000,
+		32'b 00000000000000111100000000000000,
+		32'b 00000000000000000000000000000000,
+		32'b 00000000000000000000000000000000,
+		32'b 00000000000000000000000000000000,
+		32'b 00000000000000000000000000000000,
+		32'b 00000000000000000000000000000000,
+		32'b 01000000000000000000000000000001,
+		32'b 01000000000000000000000000000001,
+		32'b 01100000000000000000000000000011,
+		32'b 01100000000000000000000000000011,
+		32'b 01110000000000000000000000000111,
+		32'b 01111100000000000000000000011111,
+		32'b 01111111000000000000000001111111
+	};
+
+	always @(posedge clk) begin
+		if (!resetn) begin
+			hcursor <= 0;
+			vcursor <= 0;
+			x <= 0;
+			y <= 0;
+			xoff <= HOFFSET;
+			yoff <= VOFFSET;
+			out_axis_tvalid <= 0;
+			out_axis_tdata <= 0;
+			out_axis_tuser <= 0;
+		end else
+		if (!out_axis_tvalid || out_axis_tready) begin
+			if (hcursor == 0)
+				rng = y ^ 123456789;
+
+			rng = rng ^ (rng << 13);
+			rng = rng ^ (rng >> 17);
+			rng = rng ^ (rng <<  5);
+
+			if (!xoff || hcursor == 0) begin
+				r = 16 * rng[0] + 16 * rng[1] + 31 * rng[2];
+				g = 16 * rng[3] + 16 * rng[4] + 31 * rng[5];
+				b = 16 * rng[6] + 16 * rng[7] + 31 * rng[8];
+
+				if ({r, g, b} == 0) begin
+					r = 32;
+					g = 32;
+					b = 32;
+				end
+			end
+
+			if (&xoff || &yoff) begin
+				r = 0;
+				g = 0;
+				b = 0;
+			end
+
+			if (SVO_VER_PIXELS >= 480) begin
+				if (X1 < x && x <= X2 && Y1 < y && y <= Y2) begin
+					r = 63;
+					g = 0;
+					b = 0;
+				end
+
+				if (X1 < x && x <= X2 && Y3 < y && y <= Y4) begin
+					r = 0;
+					g = 63;
+					b = 0;
+				end
+
+				if (X1 < x && x <= X2 && Y5 < y && y <= Y6) begin
+					r = 0;
+					g = 0;
+					b = 63;
+				end
+
+				if (X3 < x && x <= X4 && Y1 < y && y <= Y2) begin
+					r = 0;
+					g = 63;
+					b = 63;
+				end
+
+				if (X3 < x && x <= X4 && Y3 < y && y <= Y4) begin
+					r = 63;
+					g = 0;
+					b = 63;
+				end
+
+				if (X3 < x && x <= X4 && Y5 < y && y <= Y6) begin
+					r = 63;
+					g = 63;
+					b = 0;
+				end
+
+				if (&xoff && (x == X2 || x == X4)) begin
+					r = 0;
+					g = 0;
+					b = 0;
+				end
+
+				if (&yoff && (y == Y2 || y == Y4 || y == Y6)) begin
+					r = 0;
+					g = 0;
+					b = 0;
+				end
+			end
+
+			out_axis_tvalid <= 1;
+			if ((x == 1 || x == HOR_CELLS-2) && (y == 1 || y == VER_CELLS-2))
+				out_axis_tdata <= bolt_bitmap[{yoff,  xoff}] ? ~0 : 0;
+			else
+				out_axis_tdata <= {b, g, r};
+			out_axis_tuser[0] <= !hcursor && !vcursor;
+
+			if (hcursor == SVO_HOR_PIXELS-1) begin
+				hcursor <= 0;
+				x <= 0;
+				xoff <= HOFFSET;
+				if (vcursor == SVO_VER_PIXELS-1) begin
+					vcursor <= 0;
+					y <= 0;
+					yoff <= VOFFSET;
+				end else begin
+					vcursor <= vcursor + 1;
+					if (&yoff)
+						y <= y + 1;
+					yoff <= yoff + 1;
+				end
+			end else begin
+				hcursor <= hcursor + 1;
+				if (&xoff)
+					x <= x + 1;
+				xoff <= xoff + 1;
+			end
+		end
+	end
 endmodule
